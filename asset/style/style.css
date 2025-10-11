@@ -79,7 +79,8 @@ body {
     width: 100px;
 }
 
-.signInMessage {
+.signInMessage,
+.signUpMessage {
     font-size: 14px;
     font-weight: 400;
     text-decoration: none;

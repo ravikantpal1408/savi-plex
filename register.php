@@ -1,5 +1,12 @@
 <?php
+require_once("includes/classes/FormSanitizer.php");
 	if (isset($_POST["submitButton"])) {
+		$firstName = FormSanitizer::sanitizeFormString($_POST["firstName"]);
+		$lastName = FormSanitizer::sanitizeFormString($_POST["lastName"]);	
+		$email = FormSanitizer::sanitizeFormString($_POST["email"]);
+		$confirmEmail = FormSanitizer::sanitizeFormString($_POST["confirmEmail"]);
+		$password = FormSanitizer::sanitizeFormString($_POST["password"]);
+		$confirmPassword = FormSanitizer::sanitizeFormString($_POST["confirmPassword"]);
 		echo ("Form submitted successfully!");
 	}
 ?>
@@ -7,7 +14,7 @@
 <html>
 
 <head>
-	<title>Welcome to Savi-plex</title>
+	<title>Welcome to SaviPlex</title>
 	<link rel="stylesheet" type="text/css" href="asset/style/style.css">
 </head>
 
@@ -17,7 +24,7 @@
 			<div class="header">
 				<image src="asset/images/logo.png" title="Logo" alt="Site Logo">
 				<h3>Sign Up</h3>
-				<span>to continue to Savi-plex</span>
+				<span>to continue to SaviPlex</span>
 
 			</div>
 			<form method="POST">

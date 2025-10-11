@@ -7,7 +7,7 @@
 <html>
 
 <head>
-	<title>Welcome to Savi-plex</title>
+	<title>Welcome to SaviPlex</title>
 	<link rel="stylesheet" type="text/css" href="asset/style/style.css">
 </head>
 
@@ -17,7 +17,7 @@
 			<div class="header">
 				<image src="asset/images/logo.png" title="Logo" alt="Site Logo">
 				<h3>Login</h3>
-				<span>to continue to Savi-plex</span>
+				<span>to continue to SaviPlex</span>
 
 			</div>
 			<form method="POST">
@@ -26,7 +26,7 @@
 				<input type="password" name="password" id="password" placeholder="Password" required>
 				<input type="submit" name="submitButton" value="SUBMIT">
 			</form>
-			<!-- <a href="login.php" class="signInMessage">Already have an account? Sign in here!</a> -->
+			<a href="register.php" class="signUpMessage">Need an account? Sign up here!</a>
 		</div>
 	</div>
 
