@@ -1,19 +1,22 @@
 <?php
 require_once("includes/config.php");
 require_once("includes/classes/FormSanitizer.php");
+require_once("includes/classes/Account.php");
 
+$account = new Account($con);
 
-	if (isset($_POST["submitButton"])) {
-		$firstName = FormSanitizer::sanitizeFormString($_POST["firstName"]);
-		$lastName = FormSanitizer::sanitizeFormString($_POST["lastName"]);	
-		$username = FormSanitizer::sanitizeFormUsername($_POST["username"]);
-		$email = FormSanitizer::sanitizeFormEmail($_POST["email"]);		
-		$confirmEmail = FormSanitizer::sanitizeFormEmail($_POST["confirmEmail"]);
-		$password = FormSanitizer::sanitizeFormPassword($_POST["password"]);
-		$confirmPassword = FormSanitizer::sanitizeFormPassword($_POST["confirmPassword"]);
-		echo ("Form submitted successfully!");
-	}
-	
+if (isset($_POST["submitButton"])) {
+    $firstName = FormSanitizer::sanitizeFormString($_POST["firstName"]);
+    $lastName = FormSanitizer::sanitizeFormString($_POST["lastName"]);
+    $username = FormSanitizer::sanitizeFormUsername($_POST["username"]);
+    $email = FormSanitizer::sanitizeFormEmail($_POST["email"]);
+    $confirmEmail = FormSanitizer::sanitizeFormEmail($_POST["confirmEmail"]);
+    $password = FormSanitizer::sanitizeFormPassword($_POST["password"]);
+    $confirmPassword = FormSanitizer::sanitizeFormPassword($_POST["confirmPassword"]);
+	echo ("Form submitted successfully!");
+	$account->validateFirstName($firstName);
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,6 +36,7 @@ require_once("includes/classes/FormSanitizer.php");
 
 			</div>
 			<form method="POST">
+				<?php echo $account->getErrors("Your first name wrong length"); ?>
 				<input type="text" name="firstName" id="firstName" placeholder="First Name" required>
 				<input type="text" name="lastName" id="lastName" placeholder="Last Name" required>
 				<input type="text" name="username" id="username" placeholder="Username" required>
