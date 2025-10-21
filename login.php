@@ -1,5 +1,5 @@
 <?php
-	if (isset($_POST["submitButton"])) {
+if (isset($_POST["submitButton"])) {
 		echo ("Form submitted successfully!");
 	}
 ?>

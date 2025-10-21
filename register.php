@@ -2,17 +2,18 @@
 require_once("includes/config.php");
 require_once("includes/classes/FormSanitizer.php");
 require_once("includes/classes/Account.php");
+require_once("includes/classes/Constants.php");
 
 $account = new Account($con);
 
 if (isset($_POST["submitButton"])) {
-    $firstName = FormSanitizer::sanitizeFormString($_POST["firstName"]);
-    $lastName = FormSanitizer::sanitizeFormString($_POST["lastName"]);
-    $username = FormSanitizer::sanitizeFormUsername($_POST["username"]);
-    $email = FormSanitizer::sanitizeFormEmail($_POST["email"]);
-    $confirmEmail = FormSanitizer::sanitizeFormEmail($_POST["confirmEmail"]);
-    $password = FormSanitizer::sanitizeFormPassword($_POST["password"]);
-    $confirmPassword = FormSanitizer::sanitizeFormPassword($_POST["confirmPassword"]);
+	$firstName = FormSanitizer::sanitizeFormString($_POST["firstName"]);
+	$lastName = FormSanitizer::sanitizeFormString($_POST["lastName"]);
+	$username = FormSanitizer::sanitizeFormUsername($_POST["username"]);
+	$email = FormSanitizer::sanitizeFormEmail($_POST["email"]);
+	$confirmEmail = FormSanitizer::sanitizeFormEmail($_POST["confirmEmail"]);
+	$password = FormSanitizer::sanitizeFormPassword($_POST["password"]);
+	$confirmPassword = FormSanitizer::sanitizeFormPassword($_POST["confirmPassword"]);
 	echo ("Form submitted successfully!");
 	$account->validateFirstName($firstName);
 }
@@ -36,10 +37,13 @@ if (isset($_POST["submitButton"])) {
 
 			</div>
 			<form method="POST">
-				<?php echo $account->getErrors("Your first name wrong length"); ?>
+				<?php echo $account->getErrors(Constants::$firstNameCharacters	); ?>
 				<input type="text" name="firstName" id="firstName" placeholder="First Name" required>
+				<?php echo $account->getErrors(Constants::$lastNameCharacters); ?>
 				<input type="text" name="lastName" id="lastName" placeholder="Last Name" required>
+				<!-- <?php echo $account->getErrors(Constants::$usernameCharacters); ?> -->
 				<input type="text" name="username" id="username" placeholder="Username" required>
+				<!-- <?php echo $account->getErrors(Constants::$emailInvalid); ?> -->
 				<input type="email" name="email" id="email" placeholder="Email" required>
 				<input type="email" name="confirmEmail" id="confirmEmail" placeholder="Confirm Email" required>
 				<input type="password" name="password" id="password" placeholder="Password" required>

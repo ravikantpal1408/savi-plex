@@ -22,7 +22,7 @@ class Account
         if (in_array($error, $this->errorsArray)) {
             if(in_array($error, $this->errorsArray)) {
                 return $error;
-            }            
+            }
         }
     }
 }
