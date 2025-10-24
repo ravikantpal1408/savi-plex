@@ -1,7 +1,7 @@
 <?php
 if (isset($_POST["submitButton"])) {
-		echo ("Form submitted successfully!");
-	}
+	echo ("Form submitted successfully!");
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,7 +15,7 @@ if (isset($_POST["submitButton"])) {
 	<div class="signInContainer">
 		<div class="column">
 			<div class="header">
-				<image src="asset/images/logo.png" title="Logo" alt="Site Logo">
+				<img src="asset/images/logo.png" title="Logo" alt="Site Logo" />
 				<h3>Login</h3>
 				<span>to continue to SaviPlex</span>
 

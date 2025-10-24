@@ -1,5 +1,6 @@
 <?php
-class Constants {
+class Constants
+{
     public static $firstNameCharacters = "Your first name wrong length";
     public static $lastNameCharacters = "Your last name wrong length";
     public static $usernameCharacters = "Your username wrong length";
