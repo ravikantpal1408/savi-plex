@@ -5,7 +5,7 @@ class Account
     private $con;
     private $errorsArray = array();
 
-    public function _construct($con)
+    public function __construct($con)
     {
         $this->con = $con;
     }
@@ -15,44 +15,40 @@ class Account
         $this->validateFirstName($fn);
         $this->validateLastName($ln);
         $this->validateUsername($un);
-
     }
 
     private function validateFirstName($fn)
     {
         if (strlen($fn) < 2 || strlen($fn) > 25) {
-            array_push($errorsArray, Constants::$firstNameCharacters);
+            array_push($this->errorsArray, Constants::$firstNameCharacters);
         }
     }
 
-    private function validateLastName($fn)
+    private function validateLastName($ln)
     {
-        if (strlen($fn) < 2 || strlen($fn) > 25) {
-            array_push($errorsArray, Constants::$lastNameCharacters);
+        if (strlen($ln) < 2 || strlen($ln) > 25) {
+            array_push($this->errorsArray, Constants::$lastNameCharacters);
         }
     }
 
-    private function validateUsername($fn): void
+    private function validateUsername($un)
     {
-        if (strlen($fn) < 2 || strlen($fn) > 25) {
-            array_push($errorsArray, Constants::$usernameCharacters);
+        if (strlen($un) < 2 || strlen($un) > 25) {
+            array_push($this->errorsArray, Constants::$usernameCharacters);
         }
-
-        $query = $this . $con->prepare("SELECT username from users where username=:un");
+        $query = $this->con->prepare("SELECT username from users where username=:un");
         $query->bindValue(":un", $un);
         $query->execute();
 
         if ($query->rowCount() != 0) {
-            array_push($errorsArray, Constants::$usernameTaken);
+            array_push($this->errorsArray, Constants::$usernameTaken);
         }
     }
 
     public function getErrors($error)
     {
         if (in_array($error, $this->errorsArray)) {
-            if (in_array($error, $this->errorsArray)) {
-                return $error;
-            }
+            return $error;
         }
     }
 }

@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitButton'])) {
 				<input type="text" name="firstName" id="firstName" placeholder="First Name" required>
 				<?php echo htmlspecialchars($account->getErrors(Constants::$lastNameCharacters) ?? '', ENT_QUOTES, 'UTF-8'); ?>
 				<input type="text" name="lastName" id="lastName" placeholder="Last Name" required>
-				<?php echo htmlspecialchars($account->getErrors(Constants::$lastNameCharacters) ?? '', ENT_QUOTES, 'UTF-8'); ?>
+				<?php echo htmlspecialchars($account->getErrors(Constants::$usernameCharacters) ?? '', ENT_QUOTES, 'UTF-8'); ?>
 				<input type="text" name="username" id="username" placeholder="Username" required>
 				<input type="email" name="email" id="email" placeholder="Email" required>
 				<input type="email" name="confirmEmail" id="confirmEmail" placeholder="Confirm Email" required>
