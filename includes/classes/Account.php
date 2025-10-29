@@ -5,7 +5,7 @@ class Account
     private $con;
     private $errorsArray = array();
 
-    public function _construct(con)
+    public function _construct($con)
     {
         $this->con = $con;
     }
@@ -38,11 +38,11 @@ class Account
             array_push($errorsArray, Constants::$usernameCharacters);
         }
 
-        $query = $this.$con->prepare("SELECT username from users where username=:un");
+        $query = $this . $con->prepare("SELECT username from users where username=:un");
         $query->bindValue(":un", $un);
         $query->execute();
 
-        if($query->rowCount() != 0) {
+        if ($query->rowCount() != 0) {
             array_push($errorsArray, Constants::$usernameTaken);
         }
     }
