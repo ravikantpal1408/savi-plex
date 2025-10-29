@@ -1,21 +1,24 @@
 <?php
-require_once("includes/config.php");
-require_once("includes/classes/FormSanitizer.php");
-require_once("includes/classes/Account.php");
-require_once("includes/classes/Constants.php");
+declare(strict_types=1);
+
+require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/includes/classes/FormSanitizer.php';
+require_once __DIR__ . '/includes/classes/Account.php';
+require_once __DIR__ . '/includes/classes/Constants.php';
 
 $account = new Account($con);
 
-if (isset($_POST["submitButton"])) {
-	$firstName = FormSanitizer::sanitizeFormString($_POST["firstName"]);
-	$lastName = FormSanitizer::sanitizeFormString($_POST["lastName"]);
-	$username = FormSanitizer::sanitizeFormUsername($_POST["username"]);
-	$email = FormSanitizer::sanitizeFormEmail($_POST["email"]);
-	$confirmEmail = FormSanitizer::sanitizeFormEmail($_POST["confirmEmail"]);
-	$password = FormSanitizer::sanitizeFormPassword($_POST["password"]);
-	$confirmPassword = FormSanitizer::sanitizeFormPassword($_POST["confirmPassword"]);
-	echo ("Form submitted successfully!");
-	$account->validateFirstName($firstName);
+// Handle POST safely: check request method and use null-coalescing + casts
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitButton'])) {
+	$firstName = FormSanitizer::sanitizeFormString((string) ($_POST['firstName'] ?? ''));
+	$lastName = FormSanitizer::sanitizeFormString((string) ($_POST['lastName'] ?? ''));
+	$username = FormSanitizer::sanitizeFormUsername((string) ($_POST['username'] ?? ''));
+	$email = FormSanitizer::sanitizeFormEmail((string) ($_POST['email'] ?? ''));
+	$confirmEmail = FormSanitizer::sanitizeFormEmail((string) ($_POST['confirmEmail'] ?? ''));
+	$password = FormSanitizer::sanitizeFormPassword((string) ($_POST['password'] ?? ''));
+	$confirmPassword = FormSanitizer::sanitizeFormPassword((string) ($_POST['confirmPassword'] ?? ''));
+
+	$account->register($firstName, $lastName, $username, $email, $confirmEmail, $password, $confirmPassword);
 }
 
 ?>
@@ -31,23 +34,23 @@ if (isset($_POST["submitButton"])) {
 	<div class="signInContainer">
 		<div class="column">
 			<div class="header">
-				<image src="asset/images/logo.png" title="Logo" alt="Site Logo">
+				<img src="asset/images/logo.png" title="Logo" alt="Site Logo">
 				<h3>Sign Up</h3>
 				<span>to continue to SaviPlex</span>
 
 			</div>
 			<form method="POST">
-				<?php echo $account->getErrors(Constants::$firstNameCharacters	); ?>
+				<?php echo htmlspecialchars($account->getErrors(Constants::$firstNameCharacters) ?? '', ENT_QUOTES, 'UTF-8'); ?>
 				<input type="text" name="firstName" id="firstName" placeholder="First Name" required>
-				<?php echo $account->getErrors(Constants::$lastNameCharacters); ?>
+				<?php echo htmlspecialchars($account->getErrors(Constants::$lastNameCharacters) ?? '', ENT_QUOTES, 'UTF-8'); ?>
 				<input type="text" name="lastName" id="lastName" placeholder="Last Name" required>
-				<!-- <?php echo $account->getErrors(Constants::$usernameCharacters); ?> -->
+				<?php echo htmlspecialchars($account->getErrors(Constants::$lastNameCharacters) ?? '', ENT_QUOTES, 'UTF-8'); ?>
 				<input type="text" name="username" id="username" placeholder="Username" required>
-				<!-- <?php echo $account->getErrors(Constants::$emailInvalid); ?> -->
 				<input type="email" name="email" id="email" placeholder="Email" required>
 				<input type="email" name="confirmEmail" id="confirmEmail" placeholder="Confirm Email" required>
 				<input type="password" name="password" id="password" placeholder="Password" required>
-				<input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required>
+				<input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password"
+					required>
 				<input type="submit" name="submitButton" value="SUBMIT">
 			</form>
 			<a href="login.php" class="signInMessage">Already have an account? Sign in here!</a>
